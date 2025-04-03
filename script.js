@@ -26,6 +26,8 @@ function addDigit(digit) {
 
 function setOperator(NewOperator) {
    if (currentNumber) {
+      calculate();
+
       firstOperand = parseFloat(currentNumber.replace(",", "."));
       currentNumber = "";
    }
@@ -54,6 +56,25 @@ function calculate() {
       default:
          return;
    }
+
+   if (resultValue.toString().split(".")[1]?.length > 5) {
+      currentNumber = parseFloat(resultValue.toFixed(5)).toString();
+   } else {
+      currentNumber = resultValue.toString();
+   }
+
+   operator = null;
+   firstOperand = null;
+   restart = true;
+   percentageValue = null;
+   updateResult();
+}
+
+function clearCalculator() {
+   currentNumber = "";
+   firstOperand = null;
+   operator = null;
+   updateResult(true);
 }
 
 buttons.forEach((button) => {
@@ -63,6 +84,10 @@ buttons.forEach((button) => {
          addDigit(buttonText);
       } else if (["+", "-", "x", "÷"].includes(buttonText)) {
          setOperator(buttonText);
+      } else if (buttonText === "=") {
+         calculate();
+      } else if (buttonText === "C") {
+         clearCalculator();
       }
    });
 });

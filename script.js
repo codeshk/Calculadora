@@ -24,12 +24,23 @@ function addDigit(digit) {
    updateResult();
 }
 
+function setOperator(NewOperator) {
+   if (currentNumber) {
+      firstOperand = parseFloat(currentNumber.replace(",", "."));
+      currentNumber = "";
+   }
+
+   operator = NewOperator;
+}
+
 buttons.forEach((button) => {
    button.addEventListener("click", () => {
       const buttonText = button.innerText;
       if (/^[0-9,]+$/.test(buttonText)) {
          addDigit(buttonText);
+      } else if (["+", "-", "x", "÷"].includes(buttonText)) {
+         setOperator(buttonText);
       }
    });
-})
+});
 

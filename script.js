@@ -33,6 +33,12 @@ function setOperator(NewOperator) {
    operator = NewOperator;
 }
 
+function calculate() {
+   if (operator === null || firstOperand === null) return;
+   let secondOperand = parseFloat(currentNumber.replace(",", "."));
+   let resultValue;
+}
+
 buttons.forEach((button) => {
    button.addEventListener("click", () => {
       const buttonText = button.innerText;
